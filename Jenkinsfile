@@ -26,7 +26,6 @@ pipeline {
         withMaven(maven: 'mvn-3.6.3') {
           sh 'mvn dependency-check:check'
         }
-
         dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
       }
     }
@@ -36,8 +35,7 @@ pipeline {
         withMaven(maven: 'mvn-3.6.3') {
           sh 'mvn pmd:pmd pmd:cpd spotbugs:spotbugs'
         }
-
-        recordIssues enabledForFailure: true, tool: spotBugs()
+        recordIssues enabledForFailure: true, tool: spotBugs(pattern: '**/target/spotbugsXml.xml')
         recordIssues enabledForFailure: true, tool: cpd(pattern: '**/target/cpd.xml')
         recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
       }
@@ -91,8 +89,7 @@ pipeline {
 
   post {
     always {
-      // Clean up workspace after the build is done
-      cleanWs()
+      cleanWs() // Clean up workspace after the build is done
     }
   }
 }
