@@ -57,6 +57,18 @@
             <artifactId>pmd-java</artifactId>
             <version>6.31.0</version>
         </dependency>
+
+        <!-- Dependencias actualizadas de Log4j a versiones seguras -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.1</version> <!-- Versión segura -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.1</version> <!-- Versión segura -->
+        </dependency>
     </dependencies>
 
     <build>
@@ -111,36 +123,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- static source code analysis -->
-            <!-- checkstyle checks style. not security related coding errors, etc
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <failsOnError>false</failsOnError>
-                    <failOnViolation>false</failOnViolation>
-                    <consoleOutput>true</consoleOutput>
-                    <suppressionsLocation>src/main/resources/checkstyle-suppressions.xml</suppressionsLocation>
-                    <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.40</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            -->
             <!-- static source code analysis -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
@@ -252,21 +234,6 @@
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
-            <!-- Checkstyle report -->
-            <!-- Checkstyle checks 'style', not security, resource usage, performance
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>checkstyle</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            -->
             <!-- PMD report -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -293,22 +260,6 @@
                     </plugins>
                 </configuration>
             </plugin>
-            <!-- not security related
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.8.1</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>dependency-updates-report</report>
-                            <report>plugin-updates-report</report>
-                            <report>property-updates-report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            -->
         </plugins>
     </reporting>
 </project>
