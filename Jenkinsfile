@@ -6,10 +6,16 @@ pipeline {
     maven 'mvn-3.6.3'
   }
 
-  stages {
+  stages { 
     stage('Checkout') {
       steps {
         checkout scm
+      }
+    }
+
+     stage('Test Docker') {
+      steps {
+        sh 'docker --version'
       }
     }
 
