@@ -13,13 +13,6 @@ pipeline {
       }
     }
 
-     stage('Test Docker') {
-      steps {
-        sh 'docker --version'
-      }
-    }
-
-
     stage('Test Docker') {
       steps {
         sh 'which docker || echo "Docker not found!"'
