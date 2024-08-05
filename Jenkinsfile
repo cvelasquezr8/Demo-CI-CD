@@ -9,7 +9,6 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-
         checkout scm
       }
     }
@@ -17,7 +16,7 @@ pipeline {
     stage('Build') {
       steps {
         withMaven(maven: 'mvn-3.6.3') {
-          sh "mvn package"
+          sh "mvn clean package"
         }
       }
     }
@@ -68,6 +67,32 @@ pipeline {
           }
         }
       }
+    }
+
+    stage('Build Docker Image') {
+      steps {
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', 'docker-credentials-id') {
+            def app = docker.build("myapp:${env.BUILD_ID}")
+            app.push('latest')
+            app.push("${env.BUILD_ID}")
+          }
+        }
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh 'docker-compose down'
+        sh 'docker-compose up --build -d'
+      }
+    }
+  }
+
+  post {
+    always {
+      // Clean up workspace after the build is done
+      cleanWs()
     }
   }
 }
