@@ -13,19 +13,6 @@ pipeline {
       }
     }
 
-    stage('Test Docker') {
-      steps {
-        sh 'which docker || echo "Docker not found!"'
-        sh 'docker --version'
-      }
-    }
-
-    stage('Env Variables') {
-      steps {
-        sh 'env'
-      }
-    }
-
     stage('Build') {
       steps {
         withMaven(maven: 'mvn-3.6.3') {
